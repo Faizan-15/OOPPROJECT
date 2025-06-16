@@ -478,7 +478,7 @@ int main()
     Inventory inventory;
     inventory.loadFromFile("products.txt");
 
-    Admin admin("admin", "admin123"); // We have passed the admin username & Password by default to reduce number of lines of code.
+    Admin admin("admin", "admin123"); // We have passed the admin Username & Password by default to reduce number of lines of code.
     Customer customer("customer", "customer123", inventory); // Pass inventory reference
 
     int choice;
