@@ -1,0 +1,7 @@
+2,Fork,2,7
+3,Plate,3,3
+4,Glass,5,3
+5,Cup,4,2
+6,Bowl,6,4
+7,Bottle,5,8
+8,Toys,11,43
