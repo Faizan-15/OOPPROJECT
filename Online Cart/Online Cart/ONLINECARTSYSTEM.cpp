@@ -13,9 +13,15 @@ const int MAX_ORDERS = 10; // These are Maximum number of orders.
 class Product
 {
 	private:
-	    int id;
+	    // Product attributes
+		//Product ID
+		int id; 
+	    //Product Name
 	    string name;
+		//Product Price
 	    double price;
+		//Product Quantity
+	    // This is the quantity of this specific product available in the inventory.
 	    int quantity;
 	
 	public:
@@ -28,13 +34,13 @@ class Product
 	    double getPrice() const { return price; }
 	    int getQuantity() const { return quantity; }
 	
-	    // Display product details
+	    // Function to display product details
 	    void display() const
 	    {
 	        cout << "ID: " << id << ", Name: " << name << ", Price: $" << price << ", Available Quantity: " << quantity << endl;
 	    }
 	
-	    // Save product to file
+	    // Function to save product to file
 	    void saveToFile(ofstream& outFile) const
 		{
 	        outFile << id << "," << name << "," << price << "," << quantity << endl;
@@ -43,27 +49,28 @@ class Product
 	    // Load product from file
 	    void loadFromFile(const string& line) 
 		{
-	        size_t pos = 0;
-	        string token;
-	        int field = 0;
+	        size_t pos = 0; // Position of the comma in the line
+	        string token; // Token to hold the split parts of the line
+	        int field = 0; // Field index to track which part of the line we are parsing
 	
 	        // Parse the line
 	        string tempLine = line; // Create a mutable copy of the line
-	        while ((pos = tempLine.find(',')) != string::npos) 
+	        while ((pos = tempLine.find(',')) != string::npos) // Find the position of the next comma
 			{
-	            token = tempLine.substr(0, pos);
-	            switch (field) 
+	            token = tempLine.substr(0, pos); // Extract the token up to the comma
+	            // Assign the token to the appropriate field based on the index
+	            switch (field) //
 				{
 	                case 0: id = stoi(token); break; //ID of Product
 	                case 1: name = token; break; //Name of Product
 	                case 2: price = stod(token); break; //Price 
 	                case 3: quantity = stoi(token); break; //Quantity of Product
 	            }
-	            tempLine.erase(0, pos + 1);
-	            field++;
+	            tempLine.erase(0, pos + 1); // Erase the processed token and comma from the line
+	            field++; // Increment the field index to move to the next part of the line
 	        }
 	        // Handle the last token (quantity) if it exists
-	        if (field == 3) 
+	        if (field == 3) // If we have processed three fields, the last one is quantity
 			{
 	            quantity = stoi(tempLine); // Set quantity from the last token
 	        }
