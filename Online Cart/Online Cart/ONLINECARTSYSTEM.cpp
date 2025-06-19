@@ -598,11 +598,14 @@ int main()
 	{
         system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 		cout << "========= Online Shopping Cart Management System =========\n\n";
-        cout << "1. Login To ADMIN\n";
+        
+		cout << "1. Login To ADMIN\n";
         cout << "2. Login To Customer\n";
         cout << "3. Exit\n";
-        cout << "\nEnter your choice (1-3): ";
-        cin >> choice;
+        
+		cout << "\nEnter your choice (1-3): ";
+        
+		cin >> choice;
 
         switch (choice) 
 		{
@@ -625,16 +628,20 @@ int main()
                         case 1:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 							cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n================== Display Of Products ===================\n\n";
+				
 							inventory.displayProducts();
-                            break;
+                
+				            break;
                 
 				        case 2:{
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                             cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n===================== Products Entry =====================\n\n";
+				
 							int id, quantity;
                             string name;
                             double price;
-                            cout << "Enter Product ID: ";
+                
+				            cout << "Enter Product ID: ";
                             cin >> id;
                             cout << "Enter Product Name: ";
                             cin >> name;
@@ -642,18 +649,23 @@ int main()
                             cin >> price;
                             cout << "Enter Product Quantity: ";
                             cin >> quantity;
-                            admin.addProduct(inventory, id, name, price, quantity);
-                            inventory.saveToFile("products.txt");
-                            break;
+                
+				            admin.addProduct(inventory, id, name, price, quantity);
+                
+				            inventory.saveToFile("products.txt");
+                
+				            break;
                         }
                 
 				        case 3: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
                             cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n=================== Updating Products ====================\n\n";
+				
 							int id, quantity;
                             string name;
                             double price;
-                            cout << "Enter Product ID to update: ";
+                
+				            cout << "Enter Product ID to update: ";
                             cin >> id;
                             cout << "Enter new Product Name: ";
                             cin >> name;
@@ -661,42 +673,59 @@ int main()
                             cin >> price;
                             cout << "Enter new Product Quantity: ";
                             cin >> quantity;
-                            admin.updateProduct(inventory, id, name, price, quantity);
-                            inventory.saveToFile("products.txt");
-                            break;
+                
+				            admin.updateProduct(inventory, id, name, price, quantity);
+                
+				            inventory.saveToFile("products.txt");
+                
+				            break;
                         }
                 
 				        case 4: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
                             cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n=================== Deleting Products ====================\n\n";
+				
 							int id;
-                            cout << "Enter Product ID to delete: ";
+                
+				            cout << "Enter Product ID to delete: ";
                             cin >> id;
-                            admin.deleteProduct(inventory, id);
-                            inventory.saveToFile("products.txt");
-                            break;
+                
+				            admin.deleteProduct(inventory, id);
+                
+				            inventory.saveToFile("products.txt");
+                
+				            break;
                         }
                         
                         case 5:
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                         	cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n\n";
-                            cout << "________________ Exiting Admin Portal... _________________" << endl;
-                            Sleep(5000); //Creates up a time delay of 5 Seconds.
-                            break;
+                
+				            cout << "________________ Exiting Admin Portal... _________________" << endl;
+                
+				            Sleep(3000); //Creates up a time delay of 3 Seconds.
+                
+				            break;
                             
                         default:
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                         	cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n\n";
-                            cout << "_______________ Invalid option, Try again. _______________" << endl;
-                            Sleep(5000); //Creates up a time delay of 5 Seconds.
-                            break;
+                
+				            cout << "_______________ Invalid option, Try again. _______________" << endl;
+                
+				            Sleep(3000); //Creates up a time delay of 3 Seconds.
+                
+				            break;
                     }
                 } while (optiona != 5);
-                break;
+                
+				break;
                 
             case 2: // Enters to Customer Portal for Customer controls of Ordering and more...
                 system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-                int optionc;
+                
+				int optionc;
+                
                 do {
                     
 					system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
@@ -786,7 +815,10 @@ int main()
 							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n===================== Order History ======================\n\n";
 							         
 							customer.viewOrderHistory();
+                            cout << endl;
                             
+                            system("pause");
+                            														                            
 							break;
                       
 					    case 7:
@@ -794,7 +826,7 @@ int main()
 							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
 							cout << "_______________ Exiting Customer Portal... _______________" << endl;
 							
-							Sleep(5000); //Creates up a time delay of 5 Seconds.
+							Sleep(3000); //Creates up a time delay of 3 Seconds.
                             
 							break;
                       
@@ -803,7 +835,7 @@ int main()
                         	cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
                             cout << "_______________ Invalid option, Try again. _______________" << endl;
                             
-							Sleep(5000); //Creates up a time delay of 5 Seconds.
+							Sleep(3000); //Creates up a time delay of 3 Seconds.
                             
 							break;
                     }
@@ -815,7 +847,7 @@ int main()
                 system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                 cout << "========= Online Shopping Cart Management System =========\n\n________________ Quitting The Program... _________________\n\n";
                          
-				Sleep(5000); //Creates up a time delay of 5 Seconds.
+				Sleep(3000); //Creates up a time delay of 3 Seconds.
 				
                 break;
                 
@@ -823,7 +855,7 @@ int main()
             	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
                 cout << "========= Online Shopping Cart Management System =========\n\n_______________ Invalid option, Try again. _______________\n\n";
                 
-				Sleep(5000); //Creates up a time delay of 5 Seconds.
+				Sleep(3000); //Creates up a time delay of 3 Seconds.
 				
 				break;
         }
