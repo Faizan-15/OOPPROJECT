@@ -1,6 +1,7 @@
 #include <iostream> // For the functions of Input and Output to and from console, respectively.
 #include <fstream> // For the functions of (Input and Output) and (Write Data and Fetch Data) to and from Files, respectively. //FILE HANDLING TEXT BASED .TXT
 #include <string> //For using string based text, for storing whole sentences in the variables known as string data type in C++.
+#include <windows.h> //using for creating time delays for a better program view.
 
 using namespace std; // For CIN & COUT
 
@@ -189,12 +190,17 @@ class Inventory
 	    // Display all products
 	    void displayProducts() const // This function is kept const to ensure that it does not modify the inventory.
 		{
-	        cout << "\nAvailable Products:\n";
+	        cout << "Available Products:\n";
+			
 			// This loop iterates through all the products in the inventory and displays all of them with their details.
 	        for (int i = 0; i < productCount; ++i) 
 			{   
 				products[i].display(); // This line calls the display function of each product to print its details.
 			}
+			
+			cout<<endl; // Used for neatness
+			
+			system("pause"); //This helps to view the products until unless user presses any key from keyboard.
 		}
 	    // Find product by ID
 	    Product* findProduct(int id) // Pointer function to find a product by its ID. Why Pointer? Because it returns the address of the product in the array.
@@ -207,22 +213,29 @@ class Inventory
 	                // This line returns the address of the product in the array, allowing the caller to access the products with their details.
 	            }
 	        }
-	        return nullptr;
+	        return nullptr; // Why nullptr? Because nullptr is used as only value of pointer data type can be returned.
 	    }
 	
 	    // Save products to file
 	    void saveToFile(const string& filename) 
 		{
-	        ofstream outFile(filename);
-	        if (outFile.is_open()) 
+	        ofstream outFile(filename); // File is being opened for writing.
+	        if (outFile.is_open()) // Checks if the file is successfully opened for writing.
 			{
-	            for (int i = 0; i < productCount; ++i) 
+				// This loop iterates through all the products in the inventory and saves them to the file.
+	            for (int i = 0; i < productCount; ++i) //
 				{
+					// Calls the saveToFile function of each product to write its details to the file.
+	                // This line writes the product details in a comma-separated format to the file.
 	                products[i].saveToFile(outFile);
 	            }
-	            outFile.close();
-	            cout << "Products saved to file." << endl;
+				// Closes the file after writing all the products to it.
+	            // This line closes the file to ensure that all data is written and resources are now not in use released.
+	            outFile.close(); 
+	            cout << "Products saved to file." << endl; //
 	        } 
+			// If the file cannot be opened for writing, it displays an error message.
+	        // This is to ensure so the user is knows it well that there is an issue with file handling
 			else 
 			{
 	            cout << "Error opening file for writing." << endl;
@@ -230,24 +243,39 @@ class Inventory
 	    }
 	
 	    // Load products from file
-	    void loadFromFile(const string& filename) 
+	    void loadFromFile(const string& filename) // This function loads products from a file to the program by reading up the file line by line and then added them to the inventory.
 		{
-	        ifstream inFile(filename);
+	        ifstream inFile(filename); // File is being opened for reading.
+	        // Checks if the file is successfully opened for reading.
 	        if (inFile.is_open()) 
 			{
-	            string line;
-	            while (getline(inFile, line)) 
+	            string line; // Variable to hold each line read from the file
+	            // This loop reads each line from the file until the end of the file is reached.
+	            while (getline(inFile, line)) // getline reads a line from the file and stores it in the line variable.
 				{
-	                Product product;
-	                product.loadFromFile(line);
+					// Create a Product object to hold the product details
+	                Product product; 
+	                // loadFromFile function is called to parse the line and fill the product object with details.
+					product.loadFromFile(line);
+					// Debug statement to check if the product is loaded correctly
+	                // This line prints the product name and quantity to the console for debugging purposes.
 	                cout << "Loaded product: " << product.getName() << " with quantity: " << product.getQuantity() << endl; // Debug statement
-	                addProduct(product.getId(), product.getName(), product.getPrice(), product.getQuantity());
+	                // Adds the loaded product to the inventory by calling the addProduct function.
+					addProduct(product.getId(), product.getName(), product.getPrice(), product.getQuantity());
 	            }
-	            inFile.close();
+				// Closes the file after reading all the products from it.
+	            // This line closes the file to ensure that all data is read and resources are now not in use released.  
+				inFile.close();
+				// This line displays a message indicating that the products have been loaded from the file successfully.
 	            cout << "Products loaded from file." << endl;
+	            system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
 	        } 
+			// If the file cannot be opened for reading, it displays an error message.
+	        // This is to ensure so the user is knows it well that there is an issue with file handling
 	        else
 			{
+				// This line displays a message indicating that no existing product file was found.
+	            // It is used to inform the user that the inventory is empty right now with no products in it.
 	            cout << "No existing product file found. Starting with an empty inventory." << endl;
 	        }
 	    }
@@ -256,40 +284,56 @@ class Inventory
 // ShoppingCart class to manage the shopping cart
 class ShoppingCart 
 {
+	// Why firstly we have to define the CartItem structure as public, secondly cart size as privately, then thirdly public again for all functions? 
+	// Because we need to access the CartItem structure from outside the class, but we want to keep the cart size private to ensure encapsulation.
+	// This is done to ensure that the cart size cannot be modified directly from outside the class.
 	public:
+		// CartItem structure to hold product and quantity in the cart
+		// This structure is used to represent an item in the shopping cart, which consists of a product and its quantity.
+		// It is defined as public so that it can be accessed from outside the ShoppingCart
 	    struct CartItem 
 		{
+			// Product being bought
 	        Product product;
-	        int quantity; // Quantity of the product being bought
+			 // Quantity of the product being bought
+	        int quantity; 
 	    };
 	
 	private:
+		// Array to hold cart items and current size of the cart
+		// This array holds the items in the shopping cart, and cartSize keeps track of the number of items in the cart.
+	    // This is the maximum size of the cart, which is defined as a constant at the beginning of the code.
 	    CartItem cart[MAX_CART_SIZE];
 	    int cartSize;
 	
 	public:
-	    ShoppingCart() : cartSize(0) {}
+	    ShoppingCart() : cartSize(0) {} // Constructor initializes cartSize to 0, indicating an empty cart.
 	
-	    // Add product to cart
+	    // Adds product to cart
 	    void addProduct(const Product& product, int quantity) 
 		{
-	        if (cartSize < MAX_CART_SIZE) 
+	        if (cartSize < MAX_CART_SIZE)  // Check if there is space in the cart
 			{
-	            // Check if the product is already in the cart
+	            // Checks if the product is already in the cart
 	            for (int i = 0; i < cartSize; ++i) 
 				{
+					// If the product is already in the cart, increase its quantity
+					// This line checks if the current product in the cart matches the product being added.
 	                if (cart[i].product.getId() == product.getId()) 
 					{
 	                    cart[i].quantity += quantity; // Increase quantity if already in cart
 	                    cout << "Increased quantity of " << product.getName() << " in cart." << endl;
-	                    return;
+						// This line displays a message indicating that the quantity of the product has been increased in the cart.
+	                    return; // Exits the function making it sure that it does not execute the rest of the code after this point.
 	                }
 	            }
 	            
 	            // If not in cart, add new item
 	            cart[cartSize++] = {product, quantity};
-	            cout << "Product added to cart." << endl;
+	            cout << "Product added to cart." << endl; // This line displays a message indicating that the product has been added to the cart.
 	        } 
+			// If the cart is full, it displays a message indicating that the cart cannot hold more products.
+			// This is to ensure that the cart does not exceed its maximum size.
 			else 
 			{
 	            cout << "Cart is full! Cannot add more products." << endl;
@@ -299,19 +343,25 @@ class ShoppingCart
 	    // Remove product from cart by ID
 	    void removeProduct(int id) 
 		{
+			// Searching of product in the cart by ID is being done here.
 	        for (int i = 0; i < cartSize; ++i) 
 			{
-	            if (cart[i].product.getId() == id) 
+	            if (cart[i].product.getId() == id) // ID matching
 				{
-	                for (int j = i; j < cartSize - 1; ++j) 
+	                // This loop shifts the products left to fill the gap created by the removed product.
+					for (int j = i; j < cartSize - 1; ++j) 
 					{
-	                    cart[j] = cart[j + 1]; // Shift products left
+	                    cart[j] = cart[j + 1]; // Shifts products left
 	                }
+					// Decrease the cart size by 1 to reflect the removal of the product.
 	                cartSize--;
+					// This line displays a message indicating that the product has been removed from the cart successfully.
 	                cout << "Product removed from cart." << endl;
-	                return;
+	                return; // Exits the function making it sure that it does not execute the rest of the code after this point.
 	            }
 	        }
+			// If the product with the given ID is not found in the cart, it displays a message indicating that the product was not found.
+	        // This is to ensure that the user is informed when they try to remove a product that does not exist in the cart.
 	        cout << "Product not found in cart." << endl;
 	    }
 	
@@ -319,9 +369,12 @@ class ShoppingCart
 	    void displayCart() const 
 		{
 	        cout << "\nShopping Cart Contents:\n";
+			// This loop iterates through all the items in the cart and displays their details.
 	        for (int i = 0; i < cartSize; ++i) 
 			{
+				// This line displays the product details and the quantity being bought.
 	            cout << "Product: ";
+				// It uses the display function of the Product class to print the product details.
 	            cart[i].product.display();
 	            cout << "Quantity: " << cart[i].quantity << endl; // Display quantity being bought
 	        }
@@ -330,29 +383,40 @@ class ShoppingCart
 	    // Calculate total price
 	    double calculateTotal() const 
 		{
-	        double total = 0;
+	        double total = 0; // Initialize total to 0
+			// This loop iterates through all the items in the cart and calculates the total price
 	        for (int i = 0; i < cartSize; ++i) 
 			{
+				// This line calculates the total price by multiplying the product price by the quantity being bought.
+	            // It uses the getPrice function of the Product class to get the price of the product
 	            total += cart[i].product.getPrice() * cart[i].quantity; // Total price based on quantity
 	        }
+			// This line displays the total price of all items in the cart.
 	        return total;
 	    }
 	
 	    // Clear cart
 	    void clearCart() 
 		{
-	        cartSize = 0;
+	        // This function clears the cart by resetting the cart size to 0.
+	        // It effectively removes all items from the cart.
+			cartSize = 0;
 	    }
 	
 	    // Get products in cart
 	    CartItem* getProducts() 
 		{
-	        return cart;
+	        // This function returns a pointer to the array of CartItem objects in the cart.
+	        // It allows access to the products in the cart for further processing.
+			return cart; 
 	    }
-	
+		
+		// Get cart size
 	    int getCartSize() const 
 		{
-	        return cartSize;
+	        // This function returns the current size of the cart, which indicates how many items are in the cart.
+	        // It is defined as const to ensure that it does not modify the cart.
+			return cartSize;
 	    }
 };
 
@@ -513,46 +577,60 @@ class Customer : public User
 // Main function to run the shopping cart management system
 int main()
 {
-    Inventory inventory;
+    // Load products from file into inventory
+	Inventory inventory;
+	// This line creates an Inventory object and loads products from a file named "products.txt".
     inventory.loadFromFile("products.txt");
 
+	// Admin Object Creation
+	// We have passed the admin Username & Password by default to reduce number of lines of code.
     Admin admin("admin", "admin123"); // We have passed the admin Username & Password by default to reduce number of lines of code.
-    Customer customer("customer", "customer123", inventory); // Pass inventory reference
 
+	// Customer Object Creation
+	// We have passed the customer Username & Password by default to reduce number of lines of code.
+	// Passed inventory reference as a parameter to the Customer constructor because inventory is needed to update the product quantities during checkout.
+    Customer customer("customer", "customer123", inventory); 
+
+	// Main menu for the shopping cart management system
+	// This is the main menu of the program which allows the user to choose between Admin and Customer portals or exit the program.
     int choice;
     do 
 	{
-        cout << "\n========= Online Shopping Cart Management System =========\n";
+        system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
+		cout << "========= Online Shopping Cart Management System =========\n\n";
         cout << "1. Login To ADMIN\n";
         cout << "2. Login To Customer\n";
         cout << "3. Exit\n";
-        cout << "Enter your choice (1-3): ";
+        cout << "\nEnter your choice (1-3): ";
         cin >> choice;
 
         switch (choice) 
 		{
             case 1: // Enters to Admin Portal for admin controls.
-                system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                 int optiona;
                 do 
 				{
-                    cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n";
-                    cout << "1. View Products\n";
+                    system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
+					cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n";
+                    cout << "\n1. View Products\n";
                     cout << "2. Add Product to Inventory\n";
                     cout << "3. Update Product in Inventory\n";
                     cout << "4. Delete Product from Inventory\n";
                     cout << "5. Exit\n";
-                    cout << "Enter your choice (1-5): ";
+                    cout << "\nEnter your choice (1-5): ";
                     cin >> optiona;
 
                     switch (optiona) 
 					{
                         case 1:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
+							cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n\n";
 							inventory.displayProducts();
                             break;
-                        case 2:{
+                
+				        case 2:{
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
+                            cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n===================== Products Entry =====================\n\n";
 							int id, quantity;
                             string name;
                             double price;
@@ -568,9 +646,11 @@ int main()
                             inventory.saveToFile("products.txt");
                             break;
                         }
-                        case 3: {
+                
+				        case 3: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            int id, quantity;
+                            cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n=================== Updating Products ====================\n\n";
+							int id, quantity;
                             string name;
                             double price;
                             cout << "Enter Product ID to update: ";
@@ -585,30 +665,39 @@ int main()
                             inventory.saveToFile("products.txt");
                             break;
                         }
-                        case 4: {
+                
+				        case 4: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            int id;
+                            cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n=================== Deleting Products ====================\n\n";
+							int id;
                             cout << "Enter Product ID to delete: ";
                             cin >> id;
                             admin.deleteProduct(inventory, id);
                             inventory.saveToFile("products.txt");
                             break;
                         }
+                        
                         case 5:
-                        	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            cout << "Exiting program..." << endl;
+                        	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
+                        	cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n\n";
+                            cout << "________________ Exiting Admin Portal... _________________" << endl;
+                            Sleep(5000); //Creates up a time delay of 5 Seconds.
                             break;
+                            
                         default:
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
                             cout << "Invalid option. Try again." << endl;
                     }
                 } while (optiona != 5);
                 break;
+                
             case 2: // Enters to Customer Portal for Customer controls of Ordering and more...
                 system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                 int optionc;
                 do {
-                    cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n";
+                    
+					system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
+					cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
                     cout << "1. View Products\n";
                     cout << "2. Add Product to Cart\n";
                     cout << "3. Remove Product from Cart\n";
@@ -616,67 +705,91 @@ int main()
                     cout << "5. Checkout Now\n";
                     cout << "6. Check Order History\n";
                     cout << "7. Exit\n";
-                    cout << "Enter your choice (1-7): ";
+                    cout << "\nEnter your choice (1-7): ";
                     cin >> optionc;
 
                     switch (optionc) 
 					{
                         case 1:
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            inventory.displayProducts();
+                    		cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+					        inventory.displayProducts();
                             break;
-                        case 2:{
+                      
+					    case 2:{
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            int id, quantity;
+                            cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+							
+							int id, quantity;
                             cout << "Enter Product ID to add to cart: ";
                             cin >> id;
                             cout << "Enter Quantity: ";
                             cin >> quantity;
-                            Product* product = inventory.findProduct(id);
-                            if (product) 
+                            
+							Product* product = inventory.findProduct(id);
+                            
+							if(product) 
 							{
                                 customer.addToCart(*product, quantity);
                             }
+                            
 							else 
 							{
                                 cout << "Product not found." << endl;
                             }
                             break;
                         }
-                        case 3: {
+                      
+					    case 3: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            int id;
+                            cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+							int id;
                             cout << "Enter Product ID to remove from cart: ";
                             cin >> id;
                             customer.removeFromCart(id);
                             break;
                         }
-                        case 4: 
+                      
+					    case 4: 
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        
-                            customer.viewCart();
+                            cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+							customer.viewCart();
                             break;
-                        case 5:
+                      
+					    case 5:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
+							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
 							customer.checkout();
                             break;
-                        case 6:
+                      
+					    case 6:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
+							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
 							customer.viewOrderHistory();
                             break;
-                        case 7:
+                      
+					    case 7:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-							cout << "Exiting program..." << endl;
+							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+							cout << "_______________ Exiting Customer Portal... _______________" << endl;
+							Sleep(5000); //Creates up a time delay of 5 Seconds.
                             break;
-                        default:
-                        	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            cout << "Invalid option. Try again." << endl;
+                      
+					    default:
+                        	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
+                        	cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+                            cout << "_______________ Invalid option, Try again. _______________" << endl;
+                            Sleep(5000); //Creates up a time delay of 5 Seconds.
+                            break;
                     }
-                } while (optionc != 7);
+                }while(optionc != 7);
                 break;
-            case 3: // At this point Program quits.
+            
+			case 3: // At this point Program quits.
                 system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                 cout << "Exiting program..." << endl;
                 break;
+                
             default:
             	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
                 cout << "Invalid option. Try again." << endl;
