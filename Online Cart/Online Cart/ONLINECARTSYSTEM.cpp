@@ -29,12 +29,12 @@ class Product
 	    Product(int id = 0, string name = "", double price = 0.0, int quantity = 0) : id(id), name(name), price(price), quantity(quantity) {}
 	
 	    // Getters 
-	    int getId() const { return id; }
-	    string getName() const { return name; }
-	    double getPrice() const { return price; }
-	    int getQuantity() const { return quantity; }
+	    int getId() const { return id; } // This function returns the ID of the product.
+	    string getName() const { return name; } // This function returns the Name of the product.
+	    double getPrice() const { return price; } // This function returns the Price of the product.
+	    int getQuantity() const { return quantity; } // This function returns the Quantity of the product.
 	
-	    // Function to display product details
+	    // This Function displays product details
 	    void display() const
 	    {
 	        cout << "ID: " << id << ", Name: " << name << ", Price: $" << price << ", Available Quantity: " << quantity << endl;
@@ -43,7 +43,8 @@ class Product
 	    // Function to save product to file
 	    void saveToFile(ofstream& outFile) const
 		{
-	        outFile << id << "," << name << "," << price << "," << quantity << endl;
+	        // Saves the product details in a comma-separated format.
+			outFile << id << "," << name << "," << price << "," << quantity << endl; 
 	    }
 	
 	    // Load product from file
@@ -81,21 +82,27 @@ class Product
 class Inventory 
 {
 	private:
-	    Product products[MAX_PRODUCTS];
+	    // Array to hold products
+		Product products[MAX_PRODUCTS];
+		// Current count of products in the inventory
+		// This is the current number of products available in the inventory. 
 	    int productCount;
 	
 	public:
-	    Inventory() : productCount(0) {}
+	    Inventory() : productCount(0) {} // Constructor initializes productCount to 0
 	
-	    // Add product to inventory
+	    // This function adds a new product to the inventory.
 	    void addProduct(int id, string name, double price, int quantity) 
 		{
-	        if (productCount < MAX_PRODUCTS) 
+	        if (productCount < MAX_PRODUCTS) // Check if there is space in the inventory
 			{
 	            products[productCount++] = Product(id, name, price, quantity);
 	        }
 			else 
-			{
+			{	// This part is executed when the inventory is full.
+	            // It checks if the inventory is full by comparing the current product count with the maximum allowed
+	            // If the inventory is full, it displays a message.
+	            // This is to ensure that the inventory does not exceed the maximum limit of products.			
 	            cout << "Inventory is full! Cannot add more products." << endl;
 	        }
 	    }
@@ -103,26 +110,37 @@ class Inventory
 	    // Update product details
 	    void updateProduct(int id, string name, double price, int quantity) 
 		{
-	        for (int i = 0; i < productCount; ++i) 
+			// This function updates the details of an existing product in the inventory.
+	        // It searches for the product by ID and updates its name, price, and quantity.
+	        for (int i = 0; i < productCount; ++i) //This loop iterates through the products in the inventory.
 			{
-	            if (products[i].getId() == id) 
+	            if (products[i].getId() == id) // Checks if the current product's ID matches the given ID
 				{
-	                products[i] = Product(id, name, price, quantity);
+	                // Updation takes place here.
+					products[i] = Product(id, name, price, quantity); 
+					// This line creates a new Product object with the updated details and assigns it to the current product in the inventory.
+	                // This effectively updates the product's details in the inventory.
 	                cout << "Product updated successfully." << endl;
-	                return;
+	                return; // Exits the function making it sure that it does not execute the rest of the code after this point.
 	            }
 	        }
-	        cout << "Product not found." << endl;
+	        cout << "Product not found." << endl; // This line is executed when the product with the given ID is not found in the inventory.
 	    }
 	
 	    // Update product quantity
 	    void updateProductQuantity(int id, int quantity) 
 		{
-	        for (int i = 0; i < productCount; ++i) 
+	        // This function updates the quantity of an existing product in the inventory.
+	        // It searches for the product by ID and decreases its quantity by the specified amount.
+			for (int i = 0; i < productCount; ++i) // This loop iterates through the products in the inventory.
 			{
-	            if (products[i].getId() == id) 
+	            // Checks if the current product's ID matches the given ID
+				if (products[i].getId() == id) 
 				{
-	                int newQuantity = products[i].getQuantity() - quantity;
+	                // Decrementing the quantity of the product by the specified amount.
+					// This line calculates the new quantity by subtracting the specified quantity from the current quantity of the product.
+					int newQuantity = products[i].getQuantity() - quantity;
+					// It checks if the new quantity is less than 0, which means there is not enough stock.
 	                if (newQuantity < 0) 
 					{
 	                    cout << "Not enough stock for product ID: " << id << endl;
