@@ -624,7 +624,7 @@ int main()
 					{
                         case 1:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-							cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n\n";
+							cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n================== Display Of Products ===================\n\n";
 							inventory.displayProducts();
                             break;
                 
@@ -685,8 +685,11 @@ int main()
                             break;
                             
                         default:
-                        	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            cout << "Invalid option. Try again." << endl;
+                        	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
+                        	cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n\n";
+                            cout << "_______________ Invalid option, Try again. _______________" << endl;
+                            Sleep(5000); //Creates up a time delay of 5 Seconds.
+                            break;
                     }
                 } while (optiona != 5);
                 break;
@@ -712,13 +715,15 @@ int main()
 					{
                         case 1:
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                    		cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
-					        inventory.displayProducts();
-                            break;
+                    		cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n================== Display Of Products ===================\n\n";
+					        
+							inventory.displayProducts();
+                            
+							break;
                       
 					    case 2:{
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+                            cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n====================== Add To Cart =======================\n\n";
 							
 							int id, quantity;
                             cout << "Enter Product ID to add to cart: ";
@@ -742,57 +747,85 @@ int main()
                       
 					    case 3: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+                            cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n==================== Remove From Cart ====================\n\n";
+							
 							int id;
                             cout << "Enter Product ID to remove from cart: ";
                             cin >> id;
-                            customer.removeFromCart(id);
-                            break;
+                            
+							customer.removeFromCart(id);
+                            
+                            Sleep(5000); //Creates up a time delay of 5 Seconds.
+                            
+							break;
                         }
                       
 					    case 4: 
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        
-                            cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+                            cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n======================= View Cart ========================\n\n";
+							         
 							customer.viewCart();
-                            break;
+							cout << endl;
+							
+							system("pause"); //This helps to view the cart until unless user presses any key from keyboard.
+                            
+							break;
                       
 					    case 5:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n======================== Checkout ========================\n\n";
+							         
 							customer.checkout();
-                            break;
+							
+							Sleep(5000); //Creates up a time delay of 5 Seconds.
+                            
+							break;
                       
 					    case 6:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n===================== Order History ======================\n\n";
+							         
 							customer.viewOrderHistory();
-                            break;
+                            
+							break;
                       
 					    case 7:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
 							cout << "_______________ Exiting Customer Portal... _______________" << endl;
+							
 							Sleep(5000); //Creates up a time delay of 5 Seconds.
-                            break;
+                            
+							break;
                       
 					    default:
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                         	cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
                             cout << "_______________ Invalid option, Try again. _______________" << endl;
-                            Sleep(5000); //Creates up a time delay of 5 Seconds.
-                            break;
+                            
+							Sleep(5000); //Creates up a time delay of 5 Seconds.
+                            
+							break;
                     }
                 }while(optionc != 7);
-                break;
+                
+				break;
             
 			case 3: // At this point Program quits.
                 system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-                cout << "Exiting program..." << endl;
+                cout << "========= Online Shopping Cart Management System =========\n\n________________ Quitting The Program... _________________\n\n";
+                         
+				Sleep(5000); //Creates up a time delay of 5 Seconds.
+				
                 break;
                 
             default:
             	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
-                cout << "Invalid option. Try again." << endl;
+                cout << "========= Online Shopping Cart Management System =========\n\n_______________ Invalid option, Try again. _______________\n\n";
+                
+				Sleep(5000); //Creates up a time delay of 5 Seconds.
+				
+				break;
         }
     } while (choice != 3);
     
