@@ -145,53 +145,66 @@ class Inventory
 					{
 	                    cout << "Not enough stock for product ID: " << id << endl;
 	                }
+					// If there is enough stock, it updates the product's quantity in the inventory.
+					// This line creates a new Product object with the updated quantity and assigns it to the current product in the inventory.
 					else 
 					{
-	                    products[i] = Product(id, products[i].getName(), products[i].getPrice(), newQuantity);
+						// This line updates the product's details in the inventory with the new quantity.
+						products[i] = Product(id, products[i].getName(), products[i].getPrice(), newQuantity);
+						// This line displays a message indicating that the quantity has been updated successfully.
+						// It uses the getName() function to retrieve the product's name and displays it.
+						// This is to ensure that the product's name is displayed correctly after the update.
 	                    cout << "Updated quantity for product: " << products[i].getName() << " to " << newQuantity << endl;
 	                }
-	                return; // Exits the function making it sure that it does not work extra
+	                return; // Exits the function making it sure that it does not execute the rest of the code after this point.
 	            }
 	        }
+			// If the product with the given ID is not found in the inventory, it displays a message indicating that the product was not found.
+	        // This is to ensure that the user is informed when they try to update a product that does not exist in the inventory.
 	        cout << "Product not found in inventory." << endl;
 	    }
 	
 	    // Delete product from inventory
 	    void deleteProduct(int id) 
 		{
-	        for (int i = 0; i < productCount; ++i) 
+			// This function deletes a product from the inventory by its searching, matching through the product ID.
+	        for (int i = 0; i < productCount; ++i) // This loop iterates through the products in the inventory.
 			{
-	            if (products[i].getId() == id) 
+	            if (products[i].getId() == id)
 				{
-	                for (int j = i; j < productCount - 1; ++j) 
+	                for (int j = i; j < productCount - 1; ++j) // This loop shifts the products left to fill the gap created by the deleted product.
+					// It starts from the index of the deleted product and goes to the second last product.
 					{
 	                    products[j] = products[j + 1]; // Shift products left
 	                }
-	                productCount--;
+	                productCount--;	// Decrease the product count by 1 to reflect the deletion.
+	                // This line displays a message indicating that the product has been deleted successfully.
 	                cout << "Product deleted successfully." << endl;
-	                return; // Exits the function making it sure that it does not work extra
+	                return; // Exits the function making it sure that it does not execute the rest of the code after this point.
 	            }
 	        }
-	        cout << "Product not found." << endl;
+	        cout << "Product not found." << endl; // This line is executed when the product with the given ID is not found in the inventory.
 	    }
 	
 	    // Display all products
-	    void displayProducts() const 
+	    void displayProducts() const // This function is kept const to ensure that it does not modify the inventory.
 		{
 	        cout << "\nAvailable Products:\n";
+			// This loop iterates through all the products in the inventory and displays all of them with their details.
 	        for (int i = 0; i < productCount; ++i) 
 			{   
-				products[i].display();
+				products[i].display(); // This line calls the display function of each product to print its details.
 			}
 		}
 	    // Find product by ID
-	    Product* findProduct(int id) 
+	    Product* findProduct(int id) // Pointer function to find a product by its ID. Why Pointer? Because it returns the address of the product in the array.
 		{
-	        for (int i = 0; i < productCount; ++i) 
+	        for (int i = 0; i < productCount; ++i)  // pre-increment loop to iterate through the products in the inventory.
 			{
 	            if (products[i].getId() == id) 
 				{
-	                return &products[i];
+	                return &products[i]; // Returns the address of the product if found.
+	                // This line returns the address of the product in the array, allowing the caller to access the products with their details.
 	            }
 	        }
 	        return nullptr;
