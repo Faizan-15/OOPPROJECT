@@ -17,10 +17,13 @@ class Product
 	    // Product attributes
 		//Product ID
 		int id; 
+	
 	    //Product Name
 	    string name;
+	
 		//Product Price
 	    double price;
+	
 		//Product Quantity
 	    // This is the quantity of this specific product available in the inventory.
 	    int quantity;
@@ -57,9 +60,11 @@ class Product
 	
 	        // Parse the line
 	        string tempLine = line; // Create a mutable copy of the line
+	
 	        while ((pos = tempLine.find(',')) != string::npos) // Find the position of the next comma
 			{
 	            token = tempLine.substr(0, pos); // Extract the token up to the comma
+	
 	            // Assign the token to the appropriate field based on the index
 	            switch (field) //
 				{
@@ -68,9 +73,12 @@ class Product
 	                case 2: price = stod(token); break; //Price 
 	                case 3: quantity = stoi(token); break; //Quantity of Product
 	            }
+	
 	            tempLine.erase(0, pos + 1); // Erase the processed token and comma from the line
+	
 	            field++; // Increment the field index to move to the next part of the line
 	        }
+	
 	        // Handle the last token (quantity) if it exists
 	        if (field == 3) // If we have processed three fields, the last one is quantity
 			{
@@ -82,9 +90,11 @@ class Product
 // Inventory class to manage products
 class Inventory 
 {
+	
 	private:
 	    // Array to hold products
 		Product products[MAX_PRODUCTS];
+	
 		// Current count of products in the inventory
 		// This is the current number of products available in the inventory. 
 	    int productCount;
@@ -122,6 +132,7 @@ class Inventory
 					// This line creates a new Product object with the updated details and assigns it to the current product in the inventory.
 	                // This effectively updates the product's details in the inventory.
 	                cout << "Product updated successfully." << endl;
+	
 	                return; // Exits the function making it sure that it does not execute the rest of the code after this point.
 	            }
 	        }
@@ -141,6 +152,7 @@ class Inventory
 	                // Decrementing the quantity of the product by the specified amount.
 					// This line calculates the new quantity by subtracting the specified quantity from the current quantity of the product.
 					int newQuantity = products[i].getQuantity() - quantity;
+	
 					// It checks if the new quantity is less than 0, which means there is not enough stock.
 	                if (newQuantity < 0) 
 					{
@@ -152,14 +164,17 @@ class Inventory
 					{
 						// This line updates the product's details in the inventory with the new quantity.
 						products[i] = Product(id, products[i].getName(), products[i].getPrice(), newQuantity);
+	
 						// This line displays a message indicating that the quantity has been updated successfully.
 						// It uses the getName() function to retrieve the product's name and displays it.
 						// This is to ensure that the product's name is displayed correctly after the update.
 	                    cout << "Updated quantity for product: " << products[i].getName() << " to " << newQuantity << endl;
 	                }
+	
 	                return; // Exits the function making it sure that it does not execute the rest of the code after this point.
 	            }
 	        }
+	
 			// If the product with the given ID is not found in the inventory, it displays a message indicating that the product was not found.
 	        // This is to ensure that the user is informed when they try to update a product that does not exist in the inventory.
 	        cout << "Product not found in inventory." << endl;
@@ -173,15 +188,17 @@ class Inventory
 			{
 	            if (products[i].getId() == id)
 				{
-	                for (int j = i; j < productCount - 1; ++j) // This loop shifts the products left to fill the gap created by the deleted product.
-					// It starts from the index of the deleted product and goes to the second last product.
+	                for (int j = i; j < productCount - 1; ++j) // This loop shifts the products left to fill the gap created by the deleted product. It starts from the index of the deleted product and goes to the second last product.
 					{
 	                    products[j] = products[j + 1]; // Shift products left
 	                }
-	                productCount--;	// Decrease the product count by 1 to reflect the deletion.
-	                // This line displays a message indicating that the product has been deleted successfully.
+	                
+					productCount--;	// Decrease the product count by 1 to reflect the deletion.
+	                
+					// This line displays a message indicating that the product has been deleted successfully.
 	                cout << "Product deleted successfully." << endl;
-	                return; // Exits the function making it sure that it does not execute the rest of the code after this point.
+	                
+					return; // Exits the function making it sure that it does not execute the rest of the code after this point.
 	            }
 	        }
 	        cout << "Product not found." << endl; // This line is executed when the product with the given ID is not found in the inventory.
@@ -202,7 +219,8 @@ class Inventory
 			
 			system("pause"); //This helps to view the products until unless user presses any key from keyboard.
 		}
-	    // Find product by ID
+	    
+		// Find product by ID
 	    Product* findProduct(int id) // Pointer function to find a product by its ID. Why Pointer? Because it returns the address of the product in the array.
 		{
 	        for (int i = 0; i < productCount; ++i)  // pre-increment loop to iterate through the products in the inventory.
@@ -219,8 +237,11 @@ class Inventory
 	    // Save products to file
 	    void saveToFile(const string& filename) 
 		{
-	        ofstream outFile(filename); // File is being opened for writing.
-	        if (outFile.is_open()) // Checks if the file is successfully opened for writing.
+			// File is being opened for writing.
+	        ofstream outFile(filename); 
+	    	
+			// Checks if the file is successfully opened for writing.
+		    if (outFile.is_open()) 
 			{
 				// This loop iterates through all the products in the inventory and saves them to the file.
 	            for (int i = 0; i < productCount; ++i) //
@@ -229,11 +250,14 @@ class Inventory
 	                // This line writes the product details in a comma-separated format to the file.
 	                products[i].saveToFile(outFile);
 	            }
+			
 				// Closes the file after writing all the products to it.
 	            // This line closes the file to ensure that all data is written and resources are now not in use released.
 	            outFile.close(); 
-	            cout << "Products saved to file." << endl; //
+	        
+			    cout << "Products saved to file." << endl; //
 	        } 
+			
 			// If the file cannot be opened for writing, it displays an error message.
 	        // This is to ensure so the user is knows it well that there is an issue with file handling
 			else 
@@ -245,32 +269,46 @@ class Inventory
 	    // Load products from file
 	    void loadFromFile(const string& filename) // This function loads products from a file to the program by reading up the file line by line and then added them to the inventory.
 		{
-	        ifstream inFile(filename); // File is being opened for reading.
-	        // Checks if the file is successfully opened for reading.
+	        // File is being opened for reading.
+			ifstream inFile(filename); 
+	        
+	        // Displays the Program Title
+	        //cout << "========= Online Shopping Cart Management System =========\n\n";
+	        
+			// Checks if the file is successfully opened for reading.
 	        if (inFile.is_open()) 
 			{
 	            string line; // Variable to hold each line read from the file
+	            
 	            // This loop reads each line from the file until the end of the file is reached.
 	            while (getline(inFile, line)) // getline reads a line from the file and stores it in the line variable.
 				{
 					// Create a Product object to hold the product details
 	                Product product; 
-	                // loadFromFile function is called to parse the line and fill the product object with details.
+	            
+				    // loadFromFile function is called to parse the line and fill the product object with details.
 					product.loadFromFile(line);
-					// Debug statement to check if the product is loaded correctly
-	                // This line prints the product name and quantity to the console for debugging purposes.
-	                cout << "Loaded product: " << product.getName() << " with quantity: " << product.getQuantity() << endl; // Debug statement
-	                // Adds the loaded product to the inventory by calling the addProduct function.
-					addProduct(product.getId(), product.getName(), product.getPrice(), product.getQuantity());
+				
+//					// Debug statement to check if the product is loaded correctly
+//	                // This line prints the product name and quantity to the console for debugging purposes.
+//	                cout << "Loaded product: " << product.getName() << " with quantity: " << product.getQuantity() << endl; // Debug statement
+//	            
+//				    // Adds the loaded product to the inventory by calling the addProduct function.
+//					addProduct(product.getId(), product.getName(), product.getPrice(), product.getQuantity());
 	            }
+				
 				// Closes the file after reading all the products from it.
 	            // This line closes the file to ensure that all data is read and resources are now not in use released.  
 				inFile.close();
+				
 				// This line displays a message indicating that the products have been loaded from the file successfully.
-	            cout << "Products loaded from file." << endl;
+	            //cout << "Products loaded from file." << endl << endl;
+	            
+				//system("pause"); //This helps to view the products until unless user presses any key from keyboard.
 	            system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
 	        } 
-			// If the file cannot be opened for reading, it displays an error message.
+	        
+			// If the file is not opened for reading, it displays an error message.
 	        // This is to ensure so the user is knows it well that there is an issue with file handling
 	        else
 			{
@@ -295,7 +333,8 @@ class ShoppingCart
 		{
 			// Product being bought
 	        Product product;
-			 // Quantity of the product being bought
+			
+			// Quantity of the product being bought
 	        int quantity; 
 	    };
 	
@@ -321,10 +360,14 @@ class ShoppingCart
 					// This line checks if the current product in the cart matches the product being added.
 	                if (cart[i].product.getId() == product.getId()) 
 					{
-	                    cart[i].quantity += quantity; // Increase quantity if already in cart
-	                    cout << "Increased quantity of " << product.getName() << " in cart." << endl;
+						// Increase quantity if already in cart
+	                    cart[i].quantity += quantity; 
+	    				
 						// This line displays a message indicating that the quantity of the product has been increased in the cart.
-	                    return; // Exits the function making it sure that it does not execute the rest of the code after this point.
+		                cout << "Increased quantity of " << product.getName() << " in cart." << endl;
+						
+						// Exits the function making it sure that it does not execute the rest of the code after this point.
+	                    return; 
 	                }
 	            }
 	            
@@ -332,6 +375,7 @@ class ShoppingCart
 	            cart[cartSize++] = {product, quantity};
 	            cout << "Product added to cart." << endl; // This line displays a message indicating that the product has been added to the cart.
 	        } 
+			
 			// If the cart is full, it displays a message indicating that the cart cannot hold more products.
 			// This is to ensure that the cart does not exceed its maximum size.
 			else 
@@ -353,13 +397,17 @@ class ShoppingCart
 					{
 	                    cart[j] = cart[j + 1]; // Shifts products left
 	                }
+			
 					// Decrease the cart size by 1 to reflect the removal of the product.
 	                cartSize--;
+			
 					// This line displays a message indicating that the product has been removed from the cart successfully.
 	                cout << "Product removed from cart." << endl;
-	                return; // Exits the function making it sure that it does not execute the rest of the code after this point.
+	        
+			        return; // Exits the function making it sure that it does not execute the rest of the code after this point.
 	            }
 	        }
+			
 			// If the product with the given ID is not found in the cart, it displays a message indicating that the product was not found.
 	        // This is to ensure that the user is informed when they try to remove a product that does not exist in the cart.
 	        cout << "Product not found in cart." << endl;
@@ -369,14 +417,17 @@ class ShoppingCart
 	    void displayCart() const 
 		{
 	        cout << "\nShopping Cart Contents:\n";
+			
 			// This loop iterates through all the items in the cart and displays their details.
 	        for (int i = 0; i < cartSize; ++i) 
 			{
 				// This line displays the product details and the quantity being bought.
 	            cout << "Product: ";
+			
 				// It uses the display function of the Product class to print the product details.
 	            cart[i].product.display();
-	            cout << "Quantity: " << cart[i].quantity << endl; // Display quantity being bought
+	        
+			    cout << "Quantity: " << cart[i].quantity << endl; // Display quantity being bought
 	        }
 	    }
 	
@@ -384,6 +435,7 @@ class ShoppingCart
 	    double calculateTotal() const 
 		{
 	        double total = 0; // Initialize total to 0
+			
 			// This loop iterates through all the items in the cart and calculates the total price
 	        for (int i = 0; i < cartSize; ++i) 
 			{
@@ -391,6 +443,7 @@ class ShoppingCart
 	            // It uses the getPrice function of the Product class to get the price of the product
 	            total += cart[i].product.getPrice() * cart[i].quantity; // Total price based on quantity
 	        }
+			
 			// This line displays the total price of all items in the cart.
 	        return total;
 	    }
@@ -450,12 +503,15 @@ class Order
 	    void displayOrder() const 
 		{
 	        cout << "Order Details:\n";
-	        for (int i = 0; i < productCount; ++i) 
+	        
+			for (int i = 0; i < productCount; ++i) 
 			{
 	            orderItems[i].product.display();
-	            cout << "Quantity: " << orderItems[i].quantity << endl; // Display quantity in order
+	        
+			    cout << "Quantity: " << orderItems[i].quantity << endl; // Display quantity in order
 	        }
-	        cout << "Total Amount: $" << total << endl;
+	        
+			cout << "Total Amount: $" << total << endl;
 	    }
 };
 
@@ -535,11 +591,13 @@ class Customer : public User
 	    void checkout() 
 		{
 	        double total = cart.calculateTotal();
+	        
 	        if (total > 0) 
 			{
 	            // Create the order
 	            orderHistory[orderCount++] = Order(cart.getProducts(), cart.getCartSize(), total);
-	            cout << "Order placed successfully!" << endl;
+	        
+			    cout << "Order placed successfully!" << endl;
 	
 	            // Update inventory based on cart items
 	            for (int i = 0; i < cart.getCartSize(); ++i) 
@@ -548,7 +606,8 @@ class Customer : public User
 	                int quantity = cart.getProducts()[i].quantity;
 	                inventory.updateProductQuantity(productId, quantity); // Update inventory
 	            }
-	            inventory.saveToFile("products.txt");
+	        
+			    inventory.saveToFile("products.txt");
 	
 	            cart.clearCart(); // Clear cart after checkout
 	        }
@@ -562,7 +621,8 @@ class Customer : public User
 	    void viewOrderHistory() 
 		{
 	        cout << "Order History:\n";
-	        for (int i = 0; i < orderCount; ++i) 
+	        
+			for (int i = 0; i < orderCount; ++i) 
 			{
 	            orderHistory[i].displayOrder();
 	        }
