@@ -1,9 +1,82 @@
-#include <iostream> // For the functions of Input and Output to and from console, respectively.
-#include <fstream> // For the functions of (Input and Output) and (Write Data and Fetch Data) to and from Files, respectively. //FILE HANDLING TEXT BASED .TXT
+#include <iostream> //For the functions of Input and Output to and from console, respectively.
+#include <fstream> //For the functions of (Input and Output) and (Write Data and Fetch Data) to and from Files, respectively. //FILE HANDLING TEXT BASED .TXT
 #include <string> //For using string based text, for storing whole sentences in the variables known as string data type in C++.
 #include <windows.h> //using for creating time delays for a better program view.
 
 using namespace std; // For CIN & COUT
+
+// Class created up for colourful attractive display
+class Color {
+	public:
+	    // Foreground colors
+	    static const string BLACK;
+	    static const string RED;
+	    static const string GREEN;
+	    static const string YELLOW;
+	    static const string BLUE;
+	    static const string MAGENTA;
+	    static const string CYAN;
+	    static const string WHITE;
+	    
+	    // Background colors
+	    static const string BG_BLACK;
+	    static const string BG_RED;
+	    static const string BG_GREEN;
+	    static const string BG_YELLOW;
+	    static const string BG_BLUE;
+	    static const string BG_MAGENTA;
+	    static const string BG_CYAN;
+	    static const string BG_WHITE;
+	    
+	    // Text styles defined
+	    static const string BOLD;
+	    static const string UNDERLINE;
+	    static const string ITALIC;
+	    static const string BLINK;
+	    
+	    // Reset all attributes 
+	    static const string RESET;
+	    
+	    // Enable colors on Windows 
+	    static void enableColors() {
+	        #ifdef _WIN32
+	        HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	        DWORD dwMode = 0;
+	        GetConsoleMode(hOut, &dwMode);
+	        dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+	        SetConsoleMode(hOut, dwMode);
+	        #endif
+	    }
+};
+
+// Initialize foreground color constants
+const string Color::BLACK = "\033[30m";
+const string Color::RED = "\033[31m";
+const string Color::GREEN = "\033[32m";
+const string Color::YELLOW = "\033[33m";
+const string Color::BLUE = "\033[34m";
+const string Color::MAGENTA = "\033[35m";
+const string Color::CYAN = "\033[36m";
+const string Color::WHITE = "\033[37m";
+
+// Initialize background color constants
+const string Color::BG_BLACK = "\033[40m";
+const string Color::BG_RED = "\033[41m";
+const string Color::BG_GREEN = "\033[42m";
+const string Color::BG_YELLOW = "\033[43m";
+const string Color::BG_BLUE = "\033[44m";
+const string Color::BG_MAGENTA = "\033[45m";
+const string Color::BG_CYAN = "\033[46m";
+const string Color::BG_WHITE = "\033[47m";
+
+// Initialize style constants
+const string Color::BOLD = "\033[1m";
+const string Color::UNDERLINE = "\033[4m";
+const string Color::ITALIC = "\033[3m";
+const string Color::BLINK = "\033[5m";
+
+//Initializes function of reset
+const string Color::RESET = "\033[0m";
 
 // Maximum number of products, cart size, and order history size.
 const int MAX_PRODUCTS = 50;
@@ -273,7 +346,7 @@ class Inventory
 			ifstream inFile(filename); 
 	        
 	        // Displays the Program Title
-	        //cout << "========= Online Shopping Cart Management System =========\n\n";
+//	        cout << "========= Online Shopping Cart Management System =========\n\n";
 	        
 			// Checks if the file is successfully opened for reading.
 	        if (inFile.is_open()) 
@@ -289,12 +362,12 @@ class Inventory
 				    // loadFromFile function is called to parse the line and fill the product object with details.
 					product.loadFromFile(line);
 				
-//					// Debug statement to check if the product is loaded correctly
-//	                // This line prints the product name and quantity to the console for debugging purposes.
+					// Debug statement to check if the product is loaded correctly
+	                // This line prints the product name and quantity to the console for debugging purposes.
 //	                cout << "Loaded product: " << product.getName() << " with quantity: " << product.getQuantity() << endl; // Debug statement
-//	            
-//				    // Adds the loaded product to the inventory by calling the addProduct function.
-//					addProduct(product.getId(), product.getName(), product.getPrice(), product.getQuantity());
+	            
+				    // Adds the loaded product to the inventory by calling the addProduct function.
+					addProduct(product.getId(), product.getName(), product.getPrice(), product.getQuantity());
 	            }
 				
 				// Closes the file after reading all the products from it.
@@ -302,9 +375,9 @@ class Inventory
 				inFile.close();
 				
 				// This line displays a message indicating that the products have been loaded from the file successfully.
-	            //cout << "Products loaded from file." << endl << endl;
+//	            cout << "Products loaded from file." << endl << endl;
 	            
-				//system("pause"); //This helps to view the products until unless user presses any key from keyboard.
+//				system("pause"); //This helps to view the products until unless user presses any key from keyboard.
 	            system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
 	        } 
 	        
@@ -657,13 +730,17 @@ int main()
     do 
 	{
         system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-		cout << "========= Online Shopping Cart Management System =========\n\n";
+		cout << Color::BOLD << Color::CYAN << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
         
+        cout << Color::YELLOW;
 		cout << "1. Login To ADMIN\n";
         cout << "2. Login To Customer\n";
         cout << "3. Exit\n";
+        cout << Color::RESET;
         
+        cout << Color::BOLD;
 		cout << "\nEnter your choice (1-3): ";
+        cout << Color::RESET;
         
 		cin >> choice;
 
