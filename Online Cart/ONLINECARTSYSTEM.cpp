@@ -16,6 +16,8 @@ class Color {
 	    static const string BLUE;
 	    static const string MAGENTA;
 	    static const string CYAN;
+	    // Add ORANGE color (256-color mode)
+    	static const string ORANGE;
 	    static const string WHITE;
 	    
 	    // Background colors
@@ -58,6 +60,8 @@ const string Color::BLUE = "\033[34m";
 const string Color::MAGENTA = "\033[35m";
 const string Color::CYAN = "\033[36m";
 const string Color::WHITE = "\033[37m";
+// Initialize ORANGE constant
+const string Color::ORANGE = "\033[38;5;208m";  // 208 is the color code for orange
 
 // Initialize background color constants
 const string Color::BG_BLACK = "\033[40m";
@@ -730,7 +734,7 @@ int main()
     do 
 	{
         system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-		cout << Color::BOLD << Color::CYAN << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+		cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
         
         cout << Color::YELLOW;
 		cout << "1. Login To ADMIN\n";
