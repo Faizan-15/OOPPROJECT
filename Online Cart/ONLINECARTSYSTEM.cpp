@@ -755,20 +755,29 @@ int main()
                 do 
 				{
                     system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-					cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n";
-                    cout << "\n1. View Products\n";
+					cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+					cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
+                    
+					cout << Color::YELLOW;
+					cout << "1. View Products\n";
                     cout << "2. Add Product to Inventory\n";
                     cout << "3. Update Product in Inventory\n";
                     cout << "4. Delete Product from Inventory\n";
                     cout << "5. Exit\n";
+					cout << Color::RESET;
+
+					cout << Color::BOLD;
                     cout << "\nEnter your choice (1-5): ";
-                    cin >> optiona;
+					cout << Color::RESET;
+                    
+					cin >> optiona;
 
                     switch (optiona) 
 					{
                         case 1:
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-							cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n================== Display Of Products ===================\n\n";
+							cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
 				
 							inventory.displayProducts();
                 
@@ -776,7 +785,8 @@ int main()
                 
 				        case 2:{
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-                            cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n===================== Products Entry =====================\n\n";
+                            cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
 				
 							int id, quantity;
                             string name;
@@ -800,7 +810,8 @@ int main()
                 
 				        case 3: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n=================== Updating Products ====================\n\n";
+                            cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
 				
 							int id, quantity;
                             string name;
@@ -824,7 +835,8 @@ int main()
                 
 				        case 4: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
-                            cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n=================== Deleting Products ====================\n\n";
+                            cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
 				
 							int id;
                 
@@ -840,7 +852,8 @@ int main()
                         
                         case 5:
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-                        	cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n\n";
+                        	cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
                 
 				            cout << "________________ Exiting Admin Portal... _________________" << endl;
                 
@@ -850,7 +863,8 @@ int main()
                             
                         default:
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-                        	cout << "========= Online Shopping Cart Management System =========\n====================== Admin Portal ======================\n\n";
+                        	cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
                 
 				            cout << "_______________ Invalid option, Try again. _______________" << endl;
                 
@@ -870,7 +884,8 @@ int main()
                 do {
                     
 					system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
-					cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
+					cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System ========="<< Color::RESET <<endl;
+					cout << Color::BOLD << Color:: YELLOW << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
                     cout << "1. View Products\n";
                     cout << "2. Add Product to Cart\n";
                     cout << "3. Remove Product from Cart\n";
