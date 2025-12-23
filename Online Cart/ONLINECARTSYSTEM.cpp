@@ -118,9 +118,7 @@ class Product
 	    // This Function displays product details
 	    void display() const
 	    {
-	        cout << Color::YELLOW;
 			cout << "ID: " << id << ", Name: " << name << ", Price: $" << price << ", Available Quantity: " << quantity << endl;
-			cout << Color::RESET;
 	    }
 	
 	    // Function to save product to file
@@ -286,17 +284,23 @@ class Inventory
 	    // Display all products
 	    void displayProducts() const // This function is kept const to ensure that it does not modify the inventory.
 		{
-	        cout << "Available Products:\n";
-			
+	        cout << Color::GREEN << Color::BOLD;
+			cout << "Available Products:\n";
+			cout << Color::RESET;
+
+			cout << Color::GREEN;
 			// This loop iterates through all the products in the inventory and displays all of them with their details.
 	        for (int i = 0; i < productCount; ++i) 
 			{   
 				products[i].display(); // This line calls the display function of each product to print its details.
 			}
 			
-			cout<<endl; // Used for neatness
+			cout << endl; // Used for neatness
+			cout << Color::RESET;
 			
+			cout << Color::BOLD << Color::BLUE;
 			system("pause"); //This helps to view the products until unless user presses any key from keyboard.
+			cout << Color::RESET;
 		}
 	    
 		// Find product by ID
@@ -738,21 +742,20 @@ int main()
         system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 		cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
         
-        cout << Color::YELLOW;
+        cout << Color::GREEN;
 		cout << "1. Login To ADMIN\n";
         cout << "2. Login To Customer\n";
         cout << "3. Exit\n";
         cout << Color::RESET;
         
-        cout << Color::BOLD << Color::BLINK << Color::BG_BLACK << Color::MAGENTA;
+        cout << Color::BOLD << Color::BLINK << Color::BLUE;
 		cout << "\nEnter your choice (1-3): ";
-        cout << Color::RESET;
-        
-		cin >> choice;
+        cin >> choice;
+		cout << Color::RESET;
 
         switch (choice) 
 		{
-            case 1: // Enters to Admin Portal for admin controls.
+            case 1: {// Enters to Admin Portal for admin controls.
                 int optiona;
                 do 
 				{
@@ -760,7 +763,7 @@ int main()
 					cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
 					cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
                     
-					cout << Color::YELLOW;
+					cout << Color::GREEN;
 					cout << "1. View Products\n";
                     cout << "2. Add Product to Inventory\n";
                     cout << "3. Update Product in Inventory\n";
@@ -768,15 +771,14 @@ int main()
                     cout << "5. Exit\n";
 					cout << Color::RESET;
 
-					cout << Color::BOLD << Color::BLINK << Color::BG_BLACK << Color::MAGENTA;
+					cout << Color::BOLD << Color::BLUE << Color::BLINK;
                     cout << "\nEnter your choice (1-5): ";
-					cout << Color::RESET;
-                    
 					cin >> optiona;
+					cout << Color::RESET;
 
                     switch (optiona) 
 					{
-                        case 1:
+                        case 1: {
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 							cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
 							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
@@ -787,8 +789,9 @@ int main()
 							inventory.displayProducts();
                 
 				            break;
+						}
                 
-				        case 2:{
+				        case 2: {
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                             cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n" << Color::RESET <<endl;
 							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n" << Color::RESET <<endl;
@@ -798,20 +801,25 @@ int main()
                             string name;
                             double price;
                 
-				            cout << Color::YELLOW;
-							cout << "Enter Product ID: ";
+							cout << Color::GREEN << Color::BOLD << "Enter Product ID: " << Color::RESET << Color::GREEN;
                             cin >> id;
-                            cout << "Enter Product Name: ";
+                            cout << Color::RESET << Color::GREEN << Color::BOLD << "Enter Product Name: "<< Color::RESET << Color::GREEN;
                             cin >> name;
-                            cout << "Enter Product Price: ";
+                            cout << Color::RESET << Color::GREEN << Color::BOLD << "Enter Product Price: " << Color::RESET << Color::GREEN;
                             cin >> price;
-                            cout << "Enter Product Quantity: ";
+                            cout << Color::RESET << Color::GREEN << Color::BOLD << "Enter Product Quantity: " << Color::RESET << Color::GREEN;
                             cin >> quantity;
 							cout << Color::RESET;
                 
 				            admin.addProduct(inventory, id, name, price, quantity);
                 
-				            inventory.saveToFile("products.txt");
+				            cout << Color::BOLD << Color::GREEN << endl;
+							inventory.saveToFile("products.txt");
+							cout << endl << Color::RESET;
+
+							cout << Color::BOLD << Color::BLUE;
+							system("pause");
+							cout << Color::RESET;
                 
 				            break;
                         }
@@ -826,20 +834,25 @@ int main()
                             string name;
                             double price;
                 
-				            cout << Color::YELLOW;
-							cout << "Enter Product ID to update: ";
+				            cout << Color::GREEN << Color::BOLD << "Enter Product ID: " << Color::RESET << Color::GREEN;
                             cin >> id;
-                            cout << "Enter new Product Name: ";
+                            cout << Color::RESET << Color::GREEN << Color::BOLD << "Enter New Product Name: "<< Color::RESET << Color::GREEN;
                             cin >> name;
-                            cout << "Enter new Product Price: ";
+                            cout << Color::RESET << Color::GREEN << Color::BOLD << "Enter New Product Price: " << Color::RESET << Color::GREEN;
                             cin >> price;
-                            cout << "Enter new Product Quantity: ";
+                            cout << Color::RESET << Color::GREEN << Color::BOLD << "Enter New Product Quantity: " << Color::RESET << Color::GREEN;
                             cin >> quantity;
+							cout << Color::RESET << endl;
+                
+				            cout << Color::BOLD << Color::GREEN << endl;
+							admin.updateProduct(inventory, id, name, price, quantity);
+				            
+							inventory.saveToFile("products.txt");
+							cout << endl << Color::RESET;
+
+							cout << Color::BOLD << Color::BLUE;
+							system("pause");
 							cout << Color::RESET;
-                
-				            admin.updateProduct(inventory, id, name, price, quantity);
-                
-				            inventory.saveToFile("products.txt");
                 
 				            break;
                         }
@@ -863,7 +876,7 @@ int main()
 				            break;
                         }
                         
-                        case 5:
+                        case 5: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                         	cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
 							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
@@ -873,8 +886,9 @@ int main()
 				            Sleep(3000); //Creates up a time delay of 3 Seconds.
                 
 				            break;
-                            
-                        default:
+						}
+							
+                        default: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                         	cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
 							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
@@ -884,12 +898,14 @@ int main()
 				            Sleep(3000); //Creates up a time delay of 3 Seconds.
                 
 				            break;
+						}
                     }
                 } while (optiona != 5);
                 
 				break;
+			}
                 
-            case 2: // Enters to Customer Portal for Customer controls of Ordering and more...
+            case 2: {// Enters to Customer Portal for Customer controls of Ordering and more...
                 system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                 
 				int optionc;
@@ -899,7 +915,7 @@ int main()
 					system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
 					cout << Color::BOLD << Color::ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
 					cout << Color::BOLD << Color::BLUE << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
-                    cout << Color::YELLOW;
+                    cout << Color::GREEN;
 					cout << "1. View Products\n";
                     cout << "2. Add Product to Cart\n";
                     cout << "3. Remove Product from Cart\n";
@@ -908,22 +924,23 @@ int main()
                     cout << "6. Check Order History\n";
                     cout << "7. Exit\n";
 					cout << Color::RESET;
-					cout << Color::BLINK;
+					cout << Color::BLINK << Color::BOLD << Color::BLUE;
                     cout << "\nEnter your choice (1-7): ";
                     cin >> optionc;
 					cout << Color::RESET;
 
                     switch (optionc) 
 					{
-                        case 1:
+                        case 1: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
                     		cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n================== Display Of Products ===================\n\n";
 					        
 							inventory.displayProducts();
                             
 							break;
+						}
                       
-					    case 2:{
+					    case 2: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
                             cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n====================== Add To Cart =======================\n\n";
 							
@@ -962,7 +979,7 @@ int main()
 							break;
                         }
                       
-					    case 4: 
+					    case 4: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        
                             cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n======================= View Cart ========================\n\n";
 							         
@@ -972,8 +989,9 @@ int main()
 							system("pause"); //This helps to view the cart until unless user presses any key from keyboard.
                             
 							break;
+						}
                       
-					    case 5:
+					    case 5: {
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n======================== Checkout ========================\n\n";
 							         
@@ -982,8 +1000,9 @@ int main()
 							Sleep(5000); //Creates up a time delay of 5 Seconds.
                             
 							break;
+						}
                       
-					    case 6:
+					    case 6: {
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n===================== Order History ======================\n\n";
 							         
@@ -993,8 +1012,9 @@ int main()
                             system("pause");
                             														                            
 							break;
+						}
                       
-					    case 7:
+					    case 7: {
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
 							cout << "_______________ Exiting Customer Portal... _______________" << endl;
@@ -1002,8 +1022,9 @@ int main()
 							Sleep(3000); //Creates up a time delay of 3 Seconds.
                             
 							break;
+						}
                       
-					    default:
+					    default: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                         	cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
                             cout << "_______________ Invalid option, Try again. _______________" << endl;
@@ -1011,26 +1032,30 @@ int main()
 							Sleep(3000); //Creates up a time delay of 3 Seconds.
                             
 							break;
+						}
                     }
                 }while(optionc != 7);
                 
 				break;
+			}
             
-			case 3: // At this point Program quits.
+			case 3: {// At this point Program quits.
                 system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                 cout << "========= Online Shopping Cart Management System =========\n\n________________ Quitting The Program... _________________\n\n";
                          
 				Sleep(3000); //Creates up a time delay of 3 Seconds.
 				
                 break;
+			}
                 
-            default:
+            default: {
             	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
                 cout << "========= Online Shopping Cart Management System =========\n\n_______________ Invalid option, Try again. _______________\n\n";
                 
 				Sleep(3000); //Creates up a time delay of 3 Seconds.
 				
 				break;
+			}
         }
     } while (choice != 3);
     

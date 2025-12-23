@@ -10,3 +10,9 @@
 10,Mug,4.27,26
 11,Spoon,1.4,47
 12,Tray,3,35
+13,Stainer,1.85,43
+14,Table,45,51
+15,Stand,6,18
+16,Iron,260,24
+17,Saucepan,78,34
+18,Blenders,199.9,36
