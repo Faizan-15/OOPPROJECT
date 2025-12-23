@@ -14,5 +14,4 @@
 14,Table,45,51
 15,Stand,6,18
 16,Iron,260,24
-17,Saucepan,78,34
-18,Blenders,199.9,36
+17,Saucepan,89.5,53
