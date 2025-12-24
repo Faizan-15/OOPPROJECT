@@ -1021,7 +1021,9 @@ int main()
                       
 					    case 5: {
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n======================== Checkout ========================\n\n";
+							cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: RED << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: CYAN <<"===================== Checkout Page ======================\n"<< Color::RESET <<endl;
 							         
 							customer.checkout();
 							
