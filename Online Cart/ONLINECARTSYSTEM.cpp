@@ -118,7 +118,7 @@ class Product
 	    // This Function displays product details
 	    void display() const
 	    {
-			cout << Color::GREEN << Color::BOLD << "ID: " << Color::RESET << Color::GREEN << id << "," << Color::BOLD << "Name: " << Color::RESET << Color::GREEN << name << "," << Color::BOLD << "Price: $" << Color::RESET << Color::GREEN << price << "," << Color::BOLD << "Available Quantity: " << Color::RESET << Color::GREEN << quantity << endl;
+			cout << Color::GREEN << Color::BOLD << "\nID: " << Color::RESET << Color::GREEN << id << "\t" << Color::BOLD << "Name: " << Color::RESET << Color::GREEN << name << "\t" << Color::BOLD << "Price: $" << Color::RESET << Color::GREEN << price << "\t" << Color::BOLD << "Available Quantity: " << Color::RESET << Color::GREEN << quantity << endl;
 	    }
 	
 	    // Function to save product to file
@@ -499,7 +499,7 @@ class ShoppingCart
 	    // Display cart contents
 	    void displayCart() const 
 		{
-	        cout << Color::GREEN << Color::BOLD << "\nShopping Cart Contents:\n" << Color::RESET;
+	        cout << Color::GREEN << Color::BOLD << "\nShopping Cart Contents:\n" << Color::RESET << endl;
 			
 			// This loop iterates through all the items in the cart and displays their details.
 	        for (int i = 0; i < cartSize; ++i) 
@@ -585,16 +585,16 @@ class Order
 	
 	    void displayOrder() const 
 		{
-	        cout << "Order Details:\n";
+	        cout << Color::GREEN << Color::BOLD << "\nOrder Details:\n" << Color::RESET;
 	        
 			for (int i = 0; i < productCount; ++i) 
 			{
 	            orderItems[i].product.display();
 	        
-			    cout << "Quantity: " << orderItems[i].quantity << endl; // Display quantity in order
+			    cout << Color::GREEN << Color::BOLD << "Quantity: " << Color::RESET << Color::GREEN << orderItems[i].quantity << endl << Color::RESET; // Display quantity in order
 	        }
 	        
-			cout << "Total Amount: $" << total << endl;
+			cout << Color::GREEN << Color::BOLD << "\nTotal Amount: $" << total << endl;
 	    }
 };
 
@@ -673,6 +673,7 @@ class Customer : public User
 	
 	    void checkout() 
 		{
+			cout << Color::GREEN << Color::BOLD; 
 	        double total = cart.calculateTotal();
 	        
 	        if (total > 0) 
@@ -693,6 +694,8 @@ class Customer : public User
 			    inventory.saveToFile("products.txt");
 	
 	            cart.clearCart(); // Clear cart after checkout
+
+				cout << Color::RESET;
 	        }
 			
 			else 
@@ -703,12 +706,14 @@ class Customer : public User
 	
 	    void viewOrderHistory() 
 		{
-	        cout << "Order History:\n";
+	        // cout << "Order History:\n";
 	        
 			for (int i = 0; i < orderCount; ++i) 
 			{
 	            orderHistory[i].displayOrder();
+				cout << endl; // For neatness
 	        }
+
 	    }
 	
 	    void displayInfo() const override 
@@ -782,7 +787,7 @@ int main()
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 							cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
 							cout << Color::BOLD << Color:: RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: CYAN << "==================== Available Products ===================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: CYAN <<"=================== Available Products ===================\n"<< Color::RESET <<endl;
 				
 			            	// Displays all products in the inventory
 							inventory.displayProducts();
@@ -883,7 +888,7 @@ int main()
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
                         	cout << Color::BOLD << Color::ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
 							cout << Color::BOLD << Color::RED << "====================== Admin Portal ======================\n"<< Color::RESET <<endl;
-				            cout << Color::BLINK << Color::GREEN << "_________________ Exiting Admin Portal... ________________" << Color::RESET << endl;
+				            cout << Color::BLINK << Color::GREEN << "__________________ Exiting Admin Portal __________________" << Color::RESET << endl;
                 
 				            Sleep(3000); //Creates up a time delay of 3 Seconds.
                 
@@ -938,7 +943,7 @@ int main()
                         case 1: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
                     		cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: RED << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: YELLOW << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
 							cout << Color::BOLD << Color:: CYAN << "==================== Available Products ===================\n"<< Color::RESET <<endl;
 					        
 							// Displays all products in the inventory
@@ -950,8 +955,8 @@ int main()
 					    case 2: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
                             cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: RED << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: CYAN <<"====================== Add To Cart =======================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: YELLOW << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: CYAN << "====================== Add To Cart =======================\n"<< Color::RESET <<endl;
 							
 							int id, quantity;
 
@@ -986,8 +991,8 @@ int main()
 					    case 3: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        	
                             cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: RED << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: CYAN <<"=================== Removal From Cart ====================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: YELLOW << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: CYAN << "=================== Removal From Cart ====================\n"<< Color::RESET <<endl;
 							
 							int id;
 
@@ -1006,8 +1011,8 @@ int main()
 					    case 4: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.                        
                             cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: RED << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: CYAN <<"======================= Your Cart ========================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: YELLOW << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: CYAN << "======================= Your Cart ========================\n"<< Color::RESET <<endl;
 							         
 							customer.viewCart();
 							cout << endl;
@@ -1022,32 +1027,40 @@ int main()
 					    case 5: {
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
 							cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: RED << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
-							cout << Color::BOLD << Color:: CYAN <<"===================== Checkout Page ======================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: YELLOW << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: CYAN << "===================== Checkout Page ======================\n"<< Color::RESET <<endl;
 							         
 							customer.checkout();
 							
-							Sleep(5000); //Creates up a time delay of 5 Seconds.
+							cout << Color::BOLD << Color::BLUE << Color::BLINK << endl;
+							system("pause"); //This helps to view the cart until unless user presses any key from keyboard.
+                            cout << Color::RESET;
                             
 							break;
 						}
                       
 					    case 6: {
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n===================== Order History ======================\n\n";
+							cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: YELLOW << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: CYAN << "===================== Order History ======================\n"<< Color::RESET <<endl;
 							         
 							customer.viewOrderHistory();
                             cout << endl;
                             
-                            system("pause");
+                            cout << Color::BOLD << Color::BLUE;
+							system("pause"); //This helps to view the cart until unless user presses any key from keyboard.
+                            cout << Color::RESET;
                             														                            
 							break;
 						}
                       
 					    case 7: {
                             system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-							cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
-							cout << "_______________ Exiting Customer Portal... _______________" << endl;
+							cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: YELLOW << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
+
+							cout << Color::BLINK << Color:: GREEN<<  "___________________ Exiting Portal... ____________________\n"<< Color::RESET <<endl;
 							
 							Sleep(3000); //Creates up a time delay of 3 Seconds.
                             
@@ -1056,8 +1069,10 @@ int main()
                       
 					    default: {
                         	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-                        	cout << "========= Online Shopping Cart Management System =========\n==================== Customer Portal =====================\n\n";
-                            cout << "_______________ Invalid option, Try again. _______________" << endl;
+                        	cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+							cout << Color::BOLD << Color:: YELLOW << "==================== Customer Portal =====================\n"<< Color::RESET <<endl;
+
+                            cout << Color::BLINK << Color::GREEN <<  "_______________ Invalid option, Try again. _______________" << endl << Color::RESET;
                             
 							Sleep(3000); //Creates up a time delay of 3 Seconds.
                             
@@ -1071,7 +1086,9 @@ int main()
             
 			case 3: {// At this point Program quits.
                 system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.
-                cout << "========= Online Shopping Cart Management System =========\n\n________________ Quitting The Program... _________________\n\n";
+                cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET <<endl;
+
+				cout << Color::BLINK << Color::GREEN <<  "________________ Quitting The Program.... ________________\n" << Color::RESET <<endl;
                          
 				Sleep(3000); //Creates up a time delay of 3 Seconds.
 				
@@ -1080,7 +1097,9 @@ int main()
                 
             default: {
             	system("cls"); //Cleans up the console for a better neat looking otherwise it seems messy.            	
-                cout << "========= Online Shopping Cart Management System =========\n\n_______________ Invalid option, Try again. _______________\n\n";
+                cout << Color::BOLD << Color:: ORANGE << "========= Online Shopping Cart Management System =========\n"<< Color::RESET << endl;
+				cout << Color::BLINK << Color::GREEN <<  "_______________ Invalid option, Try again. _______________" << endl << Color::RESET;
+
                 
 				Sleep(3000); //Creates up a time delay of 3 Seconds.
 				
