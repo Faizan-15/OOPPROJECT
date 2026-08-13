@@ -1,7 +1,7 @@
 #include <iostream> //For the functions of Input and Output to and from console, respectively.
 #include <fstream> //For the functions of (Input and Output) and (Write Data and Fetch Data) to and from Files, respectively. //FILE HANDLING TEXT BASED .TXT
 #include <string> //For using string based text, for storing whole sentences in the variables known as string data type in C++.
-#include <windows.h> //using for creating time delays for a better program view.
+#include <windows.h> //Using for creating time delays for a better program view.
 
 using namespace std; // For CIN & COUT
 
@@ -356,7 +356,6 @@ class Inventory
 			ifstream inFile(filename); 
 	        
 	        // Displays the Program Title
-//	        cout << "========= Online Shopping Cart Management System =========\n\n";
 	        
 			// Checks if the file is successfully opened for reading.
 	        if (inFile.is_open()) 
