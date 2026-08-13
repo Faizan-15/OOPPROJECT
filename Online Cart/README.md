@@ -1,6 +1,6 @@
 # Online Shopping Cart Management System
 
-A console-based shopping cart and inventory management application developed in **C++**. The project began in my **second semester** for the **Object-Oriented Programming (OOP)** course and was later during my **third semester** while studying **Data Structures and Algorithms (DSA)** its concepts were interated as well.
+A console-based shopping cart and inventory management application developed in **C++**. The project began in my **second semester** for the **Object-Oriented Programming (OOP)** course and was later during my **third semester** while studying **Data Structures and Algorithms (DSA)** its concepts were integrated as well.
 
 The project combines object-oriented design, fixed-size arrays, searching, deletion by shifting, pointers, text-file persistence, menu-driven interaction, and a colored Windows console interface.
 
